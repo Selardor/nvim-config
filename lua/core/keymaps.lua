@@ -40,8 +40,8 @@ vim.keymap.set("n", "N", "Nzzzv")
 -- Resize with arrows
 vim.keymap.set("n", "<Up>", ":resize -2<CR>", opts)
 vim.keymap.set("n", "<Down>", ":resize +2<CR>", opts)
-vim.keymap.set("n", "<Right>", ":vertical resize -2<CR>", opts)
-vim.keymap.set("n", "<Left>", ":vertical resize +2<CR>", opts)
+vim.keymap.set("n", "<Left>", ":vertical resize -2<CR>", opts)
+vim.keymap.set("n", "<Right>", ":vertical resize +2<CR>", opts)
 
 -- Buffers
 vim.keymap.set("n", "<Tab>", ":bnext<CR>", opts)
@@ -99,9 +99,9 @@ vim.keymap.set("n", "<leader>do", function()
 	diagnostics_active = not diagnostics_active
 
 	if diagnostics_active then
-		vim.diagnostic.enable(0)
+		vim.diagnostic.enable(true)
 	else
-		vim.diagnostic.disable(0)
+		vim.diagnostic.enable(false)
 	end
 end)
 

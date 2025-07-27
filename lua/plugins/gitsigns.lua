@@ -1,6 +1,8 @@
+-- Adds git related signs to the gutter, as well as utilities for managing changes
 return {
 	"lewis6991/gitsigns.nvim",
 	opts = {
+		-- See `:help gitsigns.txt`
 		signs = {
 			add = { text = "+" },
 			change = { text = "~" },
@@ -8,11 +10,12 @@ return {
 			topdelete = { text = "‾" },
 			changedelete = { text = "~" },
 		},
-		attach_to_untracked = true,
-		watch_gitdir = {
-			interval = 1000,
-			follow_files = true,
+		signs_staged = {
+			add = { text = "+" },
+			change = { text = "~" },
+			delete = { text = "_" },
+			topdelete = { text = "‾" },
+			changedelete = { text = "~" },
 		},
-		current_line_blame = false,
 	},
 }
