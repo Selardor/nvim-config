@@ -105,6 +105,16 @@ vim.keymap.set("n", "<leader>do", function()
 	end
 end)
 
+-- Restart LSPs
+vim.keymap.set("n", "<leader>rs", function()
+	for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
+		client:stop(true)
+	end
+	vim.defer_fn(function()
+		vim.cmd("edit") -- reopens the buffer, reattaches LSPs
+	end, 100)
+end, { desc = "Soft LSP restart (recheck after installing module)" })
+
 -- Diagnostic keymaps
 vim.keymap.set("n", "[d", function()
 	vim.diagnostic.jump({ count = -1, float = true })
