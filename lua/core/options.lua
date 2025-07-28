@@ -61,5 +61,12 @@ opt.conceallevel = 0 -- For Markdown, keep `` visible
 -- Plugin-friendly tweaks
 opt.shortmess:append("c") -- No "match x of y" messages
 opt.iskeyword:append("-") -- Treat hyphenated-words as whole
-opt.formatoptions:remove({ "c", "r", "o" }) -- Don't auto-comment new lines
 opt.runtimepath:remove("/usr/share/vim/vimfiles") -- Avoid loading Vim plugins
+
+-- Remove auto comment continuation *every time* a file is opened
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "*",
+	callback = function()
+		vim.opt_local.formatoptions:remove({ "c", "r", "o" })
+	end,
+})
