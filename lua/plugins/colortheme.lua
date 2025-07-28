@@ -13,6 +13,14 @@ return {
 					},
 				})
 				vim.cmd.colorscheme("tokyonight-night")
+
+				-- ✨ Add highlight override here (for better Visual selection)
+				vim.api.nvim_set_hl(0, "Visual", { reverse = true })
+
+				-- Optional: Improve visibility for CursorLine, Search
+				vim.api.nvim_set_hl(0, "CursorLine", { bg = "#2a2f38" })
+				vim.api.nvim_set_hl(0, "Search", { reverse = true })
+				vim.api.nvim_set_hl(0, "IncSearch", { reverse = true })
 			end
 
 			-- Load the theme initially
