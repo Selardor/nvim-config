@@ -139,11 +139,18 @@ return {
 			},
 
 			-- ✅ Replaced pylsp with basedpyright
-			basedpyright = {
+			pyright = {
 				on_init = function(client)
 					local path = get_python_path(client.config.root_dir)
 					client.config.settings = client.config.settings or {}
-					client.config.settings.python = { pythonPath = path }
+					client.config.settings.python = client.config.settings.python or {}
+
+					client.config.settings.python.pythonPath = path
+					client.config.settings.python.analysis = {
+						typeCheckingMode = "basic",
+						reportExplicitAny = "none",
+						reportAny = "none",
+					}
 				end,
 			},
 
