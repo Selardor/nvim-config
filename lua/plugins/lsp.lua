@@ -138,7 +138,7 @@ return {
 				},
 			},
 
-			-- ✅ Replaced pylsp with basedpyright
+			-- Pyright languase server
 			pyright = {
 				on_init = function(client)
 					local path = get_python_path(client.config.root_dir)
@@ -147,7 +147,7 @@ return {
 
 					client.config.settings.python.pythonPath = path
 					client.config.settings.python.analysis = {
-						typeCheckingMode = "basic",
+						typeCheckingMode = "strict",
 						reportExplicitAny = "none",
 						reportAny = "none",
 					}

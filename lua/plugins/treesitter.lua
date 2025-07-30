@@ -98,5 +98,42 @@ return {
 		vim.filetype.add({ extension = { tfvars = "terraform" } })
 		vim.filetype.add({ extension = { pipeline = "groovy" } })
 		vim.filetype.add({ extension = { multibranch = "groovy" } })
+
+		-- Automatically insert `f` for Python f-strings when typing `{` inside a string
+		vim.api.nvim_create_autocmd("InsertCharPre", {
+			pattern = "*.py",
+			callback = function()
+				if vim.v.char ~= "{" then
+					return
+				end
+
+				local ts_utils = require("nvim-treesitter.ts_utils")
+				local node = ts_utils.get_node_at_cursor()
+				if not node then
+					return
+				end
+
+				while node and node:type() ~= "string" do
+					node = node:parent()
+				end
+				if not node then
+					return
+				end
+
+				local bufnr = vim.api.nvim_get_current_buf()
+				local start_row, start_col = node:start()
+				local line = vim.api.nvim_buf_get_lines(bufnr, start_row, start_row + 1, false)[1]
+
+				-- Grab the first few characters of the string prefix
+				local prefix = line:sub(start_col, start_col + 4):lower()
+
+				-- Only insert 'f' if it's not already there before the opening quote
+				if not prefix:match("f") then
+					vim.schedule(function()
+						vim.api.nvim_buf_set_text(bufnr, start_row, start_col, start_row, start_col, { "f" })
+					end)
+				end
+			end,
+		})
 	end,
 }

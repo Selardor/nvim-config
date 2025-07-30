@@ -57,6 +57,7 @@ opt.timeoutlen = 300 -- Mapped sequence wait time
 opt.whichwrap = "b,s,<,>,[,],h,l"
 opt.backspace = { "indent", "eol", "start" }
 opt.conceallevel = 0 -- For Markdown, keep `` visible
+opt.fixendofline = true -- Add extra new line at end of file
 
 -- Plugin-friendly tweaks
 opt.shortmess:append("c") -- No "match x of y" messages
