@@ -1,6 +1,7 @@
 require("core.options")
 require("core.keymaps")
 require("core.snippets")
+require("core.filetype")
 
 vim.env.PATH = vim.env.PATH .. ":" .. os.getenv("HOME") .. "/.local/share/nvim/mason/bin"
 vim.cmd("filetype plugin indent on")

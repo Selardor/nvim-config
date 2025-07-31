@@ -28,7 +28,18 @@ return {
 			diagnostics.checkmake,
 			formatting.prettier.with({ filetypes = { "html", "json", "yaml", "markdown" } }),
 			formatting.stylua,
-			formatting.shfmt.with({ args = { "-i", "4" } }),
+			formatting.shfmt.with({
+				args = { "-i", "4" },
+				condition = function(params)
+					local bufname = params.bufname or ""
+					-- If bufname is empty or invalid, skip formatting to be safe
+					if bufname == "" then
+						return false
+					end
+					local filename = vim.fn.fnamemodify(bufname, ":t")
+					return filename ~= ".env"
+				end,
+			}),
 			formatting.terraform_fmt,
 			require("none-ls.formatting.ruff").with({ extra_args = { "--extend-select", "I" } }),
 			require("none-ls.formatting.ruff_format"),
