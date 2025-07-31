@@ -75,8 +75,16 @@ return { -- Autocompletion
 			mapping = cmp.mapping.preset.insert({
 				["<C-j>"] = cmp.mapping.select_next_item(), -- Select the [n]ext item
 				["<C-k>"] = cmp.mapping.select_prev_item(), -- Select the [p]revious item
-				["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept the completion with Enter.
+				["<M-CR>"] = cmp.mapping.confirm({ select = true }), -- Accept the completion with Space - Enter.
 				["<C-c>"] = cmp.mapping.complete({}), -- Manually trigger a completion from nvim-cmp.
+
+				-- Insert new line without completion with Enter
+				["<CR>"] = cmp.mapping(function(fallback)
+					if cmp.visible() then
+						cmp.abort()
+					end
+					fallback() -- fallback inserts a newline
+				end, { "i", "s" }),
 
 				-- Think of <c-l> as moving to the right of your snippet expansion.
 				--  So if you have a snippet that's like:
